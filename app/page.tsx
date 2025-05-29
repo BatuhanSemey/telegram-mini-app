@@ -33,18 +33,23 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="p-6">
-            <h1 className="text-xl font-bold">Главная страница</h1>
-            {user ? (
-                <div className="mt-4">
-                    <p><strong>Имя:</strong> {user.first_name}</p>
-                    {user.last_name && <p><strong>Фамилия:</strong> {user.last_name}</p>}
-                    {user.username && <p><strong>Username:</strong> @{user.username}</p>}
-                    <p><strong>User ID:</strong> {user.id}</p>
-                </div>
-            ) : (
-                <p className="text-gray-500 mt-4">Загрузка данных пользователя...</p>
-            )}
-        </div>
+        <>
+            <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
+
+            <div className="p-6">
+                <h1 className="text-xl font-bold">Главная страница</h1>
+                {user ? (
+                    <div className="mt-4">
+                        <p><strong>Имя:</strong> {user.first_name}</p>
+                        {user.last_name && <p><strong>Фамилия:</strong> {user.last_name}</p>}
+                        {user.username && <p><strong>Username:</strong> @{user.username}</p>}
+                        <p><strong>User ID:</strong> {user.id}</p>
+                    </div>
+                ) : (
+                    <p className="text-gray-500 mt-4">Загрузка данных пользователя...</p>
+                )}
+            </div>
+        </>
+
     );
 }
