@@ -11,7 +11,7 @@ type TelegramUser = {
 };
 
 export default function Home() {
-    const [user, setUser] = useState<TelegramUser>();
+    const [user, setUser] = useState<TelegramUser | undefined>();
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
