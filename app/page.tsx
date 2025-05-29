@@ -19,7 +19,7 @@ export default function Home() {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const tg = window.Telegram.WebApp;
             tg.ready();
-            const userData: unknown = tg.initDataUnsafe?;
+            const userData: unknown = tg.initDataUnsafe?.user;
             setUser(userData as TelegramUser);
             console.log('Пользователь Telegram:', userData);
         }
