@@ -26,7 +26,7 @@ export default function Main() {
                 return data.result;
             };
 
-            getUser().then((message) => {
+            getUser().then(() => {
                 setUser(tg.initDataUnsafe.user as TelegramUser);
                 console.log('Пользователь Telegram:', tg.initDataUnsafe.user);
             });

@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
         await getStatus(200, 'Доступ валиден', undefined)
 
-    } catch (error) {
+    } catch (error: unknown) {
         await getStatus(500, 'Ошибка запроса', undefined)
     }
 }
