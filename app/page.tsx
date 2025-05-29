@@ -58,6 +58,7 @@ export default function Home() {
                         <p>Пользователь не найден в initDataUnsafe</p>
                     )}
                     <button onClick={sendData}>Отправить данные боту</button>
+                    <div>{user && JSON.stringify(user, null, 2)}</div>
                 </>
             ) : (
                 <p>Telegram WebApp не загружен</p>
