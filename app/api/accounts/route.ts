@@ -10,14 +10,12 @@ async function getStatus(status: number, message: string, data: TelegramUser | u
 }
 
 export async function POST(request: Request) {
-    try {
-        const responseData = await request.body
 
-        console.log(responseData);
+    const responseData = await request.body
 
-        await getStatus(200, 'Доступ валиден', undefined)
+    console.log(responseData);
 
-    } catch (error: unknown) {
-        await getStatus(500, 'Ошибка запроса', undefined)
-    }
+    await getStatus(200, 'Доступ валиден', undefined)
+
+
 }
