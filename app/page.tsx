@@ -1,16 +1,24 @@
-'use client'; // Обязательно, если ты в Next.js App Router (папка /app)
+'use client';
 
 import { useEffect, useState } from 'react';
 
+type TelegramUser = {
+    id: number;
+    first_name: string;
+    last_name?: string;
+    username?: string;
+    language_code?: string;
+};
+
 export default function Home() {
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<TelegramUser>();
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const tg = window.Telegram.WebApp;
             tg.ready();
-            const userData = tg.initDataUnsafe?.user;
-            setUser(userData);
+            const userData: unknown = tg.initDataUnsafe?.user;
+            setUser(userData as TelegramUser);
             console.log('Пользователь Telegram:', userData);
         }
     }, []);
