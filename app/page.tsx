@@ -17,6 +17,8 @@ export default function Home() {
         console.log('connected');
         
         console.log(window.Telegram);
+
+        setUser(window.Telegram?.WebApp?.initDataUnsafe?.user);
         
         // if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
         //     const tg = window.Telegram.WebApp;
