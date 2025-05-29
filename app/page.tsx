@@ -16,15 +16,17 @@ export default function Home() {
     useEffect(() => {
         console.log('connected');
         
-        if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-            const tg = window.Telegram.WebApp;
-            console.log(tg);
-            console.log(tg.initData);
-            tg.ready();
-            const userData: unknown = tg.initDataUnsafe?.user;
-            setUser(userData as TelegramUser);
-            console.log('Пользователь Telegram:', userData);
-        }
+        console.log(window.Telegram);
+        
+        // if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+        //     const tg = window.Telegram.WebApp;
+        //     console.log(tg);
+        //     console.log(tg.initData);
+        //     tg.ready();
+        //     const userData: unknown = tg.initDataUnsafe?.user;
+        //     setUser(userData as TelegramUser);
+        //     console.log('Пользователь Telegram:', userData);
+        // }
     }, []);
 
     return (
