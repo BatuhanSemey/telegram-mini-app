@@ -11,24 +11,25 @@ type TelegramUser = {
 };
 
 export default function Home() {
-    const [user, setUser] = useState<TelegramUser | undefined>();
+    const [user, setUser] = useState<TelegramUser | null>(null);
 
     useEffect(() => {
-        console.log('connected');
-        
-        console.log(window.Telegram);
+        const checkTelegram = () => {
+            if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+                const tg = window.Telegram.WebApp;
+                tg.ready();
+                const userData = tg.initDataUnsafe?.user;
+                if (userData) {
+                    setUser(userData);
+                    console.log('Пользователь Telegram:', userData);
+                    clearInterval(intervalId);
+                }
+            }
+        };
 
-        setUser(window.Telegram?.WebApp?.initDataUnsafe?.user);
-        
-        // if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-        //     const tg = window.Telegram.WebApp;
-        //     console.log(tg);
-        //     console.log(tg.initData);
-        //     tg.ready();
-        //     const userData: unknown = tg.initDataUnsafe?.user;
-        //     setUser(userData as TelegramUser);
-        //     console.log('Пользователь Telegram:', userData);
-        // }
+        const intervalId = setInterval(checkTelegram, 100);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     return (
@@ -37,8 +38,8 @@ export default function Home() {
             {user ? (
                 <div className="mt-4">
                     <p><strong>Имя:</strong> {user.first_name}</p>
-                    <p><strong>Фамилия:</strong> {user.last_name}</p>
-                    <p><strong>Username:</strong> @{user.username}</p>
+                    {user.last_name && <p><strong>Фамилия:</strong> {user.last_name}</p>}
+                    {user.username && <p><strong>Username:</strong> @{user.username}</p>}
                     <p><strong>User ID:</strong> {user.id}</p>
                 </div>
             ) : (
