@@ -2,7 +2,7 @@
 
 
 /* Обработка запросов */
-async function getStatus(status: number, message: string, data: any | undefined) {
+async function getStatus(status: number, message: string, data: TelegramUser | undefined) {
     return new Response(JSON.stringify({ message: message, data }), {
         status: status,
         headers: { 'Content-Type': 'application/json' }
