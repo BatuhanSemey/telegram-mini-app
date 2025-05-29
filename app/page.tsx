@@ -14,10 +14,12 @@ export default function Home() {
     const [user, setUser] = useState<TelegramUser | undefined>();
 
     useEffect(() => {
+        console.log('connected');
+        
         if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
             const tg = window.Telegram.WebApp;
             tg.ready();
-            const userData: unknown = tg.initDataUnsafe?.user;
+            const userData: unknown = tg.initDataUnsafe?;
             setUser(userData as TelegramUser);
             console.log('Пользователь Telegram:', userData);
         }
