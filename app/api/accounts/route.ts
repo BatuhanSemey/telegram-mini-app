@@ -1,0 +1,23 @@
+
+
+
+/* Обработка запросов */
+async function getStatus(status: number, message: string, data: any | undefined) {
+    return new Response(JSON.stringify({ message: message, data }), {
+        status: status,
+        headers: { 'Content-Type': 'application/json' }
+    })
+}
+
+export async function POST(request: Request) {
+    try {
+        const responseData = await request.body
+
+        console.log(responseData);
+
+        await getStatus(200, 'Доступ валиден', undefined)
+
+    } catch (error) {
+        await getStatus(500, 'Ошибка запроса', undefined)
+    }
+}
