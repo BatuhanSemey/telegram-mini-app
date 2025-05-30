@@ -2,35 +2,31 @@
 
 import { useEffect, useState } from 'react';
 
-
 export default function Main() {
     const [user, setUser] = useState<TelegramUser | null>(null);
 
     useEffect(() => {
-        if (window.Telegram?.WebApp) {
-            const tg = window.Telegram.WebApp
+        const script = document.createElement('script')
+        script.src = 'https://telegram.org/js/telegram-web-app.js'
+        script.async = true
+
+        script.onload = () => {
+            const tg = window.Telegram?.WebApp
+            if (!tg) return
+
             tg.ready();
 
-            const getUser = async () => {
-                const response = await fetch('/api/accounts', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        initData: tg.initData,
-                    }),
+            const idUser = tg.initDataUnsafe?.user?.id;
+            if (!idUser) return;
+            
+            fetch(`/api/accounts?id=${idUser}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    setUser(data);
                 });
+        };
 
-                const data = await response.json();
-                return data.result;
-            };
-
-            getUser().then(() => {
-                setUser(tg.initDataUnsafe.user as TelegramUser);
-                console.log('Пользователь Telegram:', tg.initDataUnsafe.user);
-            });
-        }
+        document.body.appendChild(script);
     }, []);
 
     return (
