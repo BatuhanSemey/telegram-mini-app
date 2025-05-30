@@ -17,11 +17,14 @@ export default function Home() {
 
         const tg = await loadTelegramWebApp() /* Инициализация WebApp */
         const idUser = tg.initDataUnsafe?.user?.id
-
+        console.log(idUser);
+        
         if (idUser) {
 
             const statusResponse = await CheckedUserAccount(idUser) /* Проверка аккаунта */
 
+            console.log(statusResponse);
+            
             if (statusResponse !== 200) {
                 router.replace(`/no-access`);
                 return
@@ -37,7 +40,8 @@ export default function Home() {
 
 
     useEffect(() => {
-
+        console.log('useEffect');
+        
         if (userData) {
             setUser(userData)
             return
